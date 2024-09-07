@@ -1,0 +1,4 @@
+- https://www.educative.io/blog/coding-interview-leetcode-patterns
+- https://leetcode.com/studyplan/leetcode-75/
+- https://www.educative.io/blog/system-design-interview-questions
+- https://archive.ph/7flP0

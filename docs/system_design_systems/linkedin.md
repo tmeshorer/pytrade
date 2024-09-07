@@ -1,0 +1,32 @@
+# Clarification question
+- Job posting
+- Post
+- Like/Unlike
+- Job recommendation
+- What area to focus ? Job seakers. find a job. product manager role.
+## Write out the functional requierments.
+- As employer - create the job
+- As a user:
+  - create profile (sharing skills)
+  - search job for a role
+  - Job recommendation
+  - Relevence result.
+  - First step
+    - Scope down the problem
+    - Identify use case
+- Non functional requierments
+    - Result should be quick . low latency - 200 ms. API Latency
+    - Availability of the system. Fault tolerance. 
+    - Eventual consistency. 
+    - Choice of consistency 
+- Metrics / Scale
+  - 100M daily active user
+  - 40% coming for job. . 40M DAU. 
+  - Search job: 500 TPS. 3-4 search a day. 
+  - Jobs - Active jobs - 10M job.
+  Scale
+  - Confirm scale traffic and data
+  - Avg pick traffic time. 
+  - Explain the math. 
+- Move to API
+  - 

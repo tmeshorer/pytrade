@@ -249,38 +249,3 @@ roleRef:
   name: list-pods-role
   apiGroup: rbac.authorization.k8s.io
 ```
-
-# Resource requirements, limits and quotas
-- Workload consume certain amount of resources (CPU/Mem)
-- Container level - min amount of resources, Max amount of resources.
-- ResourceQuota - aggegrate at the name space level
-- LimitRange - specific type.
-- Each container define resource request, The scheduler assure that total resource fit
-- Examples:
-- requests.cpu = 500ml
-- requests.memopty - 64Mi
-- Example:
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: rate-limiter
-spec:
-  containers:
-  - name: business-app
-    image: bmuschko/nodejs-business-app:1.0.0
-    ports:
-    - containerPort: 8080
-    resources:
-      requests:
-        memory: "256Mi"
-        cpu: "1"
-  - name: ambassador
-    image: bmuschko/nodejs-ambassador:1.0.0
-    ports:
-    - containerPort: 8081
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "250m"
-```

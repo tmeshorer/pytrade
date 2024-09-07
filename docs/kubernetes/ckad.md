@@ -174,7 +174,7 @@ kind: Job
 metadata:
   name: counter
 spec:
-  template:   1
+  template:   
     spec:
       containers:
       - name: counter

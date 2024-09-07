@@ -1,0 +1,50 @@
+# contrain registry
+
+- Content addressable datastore - for each object in the store identifed by digest.
+- Kind of objects - blobs.
+- Manifest - metadata about images and the content of the blob. 
+   - what layers stored for each image
+- Tags - human readable name.
+- CNCF distribution - dontated by docker. Hosted container registry.  
+
+### Containers and kubernetes
+- Build a flask based webapp. 
+- Monolith - Presenation / Business / DBLaye. 
+- All components scale as an whole. Cannot scale independtly. 
+- Rolling back the whole monitorlish. 
+- Lots of code, refactoring diffuclt. 
+- Split the app into microservices
+  - web ui
+  - photo managmeent -> Photos in S3, and metadata in RDBMS
+  - user managment component. -> RDBMS
+  - Use data stor
+- Match kubernetes 
+  - Deployment - group of identical workload
+  - Services.
+- Container - Method of packaging and running
+  - Lightweight
+  - Portable
+  - Isolated.
+  - VM - full OS on . Low level hypervisor allocated the system. Increase efficency. Overhead: OS
+  - Container - goal of sandboxing app. Dont require OS, just container runtime. Image file smaller than VM, base images.
+  - What are containers:
+    - package application and all of those depdencies
+    - Namespaces
+    - Cgroup 
+  - Container
+    - Sandbox processes.
+    - Container runtime allow to run container on an host OS.
+    - Runtime - build/push/pull 
+  - Container Image - create image using a Dockerfile. 
+  - Container registry - pre existing docker images. make container available for download.
+  - FROM <start from preexisting container image>. FROM python
+  - WORKDIR /app
+  - COPY requierments.txt . # copy into the container image.
+  - Docker image consist of set of layer.
+  - Layer approch to file system. All common file would be dedup. Way container images.
+  - Efficancy store similar images. 
+  - RUN pip install -r requierments.txt. 
+  - COPY . . # copy rest of the file from local dir.
+  - CMD ["python","app.py"]
+  - docker build -t flask:v0 .
+  - docker  images ls
