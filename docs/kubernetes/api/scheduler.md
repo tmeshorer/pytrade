@@ -2,6 +2,54 @@
 Find a suitable node for a new Pod. When a pod is created it is in `PENDING`
 Select a worker node.
 
+
+## Nodes
+- add labels to nodes
+## Node selector  
+- define nodes selector. I want to run in a node with label "node=mynode"
+```yaml
+nodeSelector:
+  node: my-node
+```
+## Node Affinity
+Like selector but with more expressive syntax
+- Hard rule
+- Soft rule
+- Operator: In, Exist, Gt, Lt...
+## Pod Affinity
+Allow to run the Pod on the same Node than another Pod. Usefull for pods that need to 
+run on the same machine.
+```yaml
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - my-app
+```
+## Pod anti-affinity
+Allow to run several replicas of a deployment on different node
+```yaml
+affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+          matchExpressions:
+            - key: app
+              operator: In
+              values:
+                - my-app
+          topologyKey: kubernetes.io/hostname
+```
+
+
+
+
 # Tools
 ## Quality Of Service
 Depdending on request and limits, the POD is classified into QOS class
@@ -25,7 +73,7 @@ resources:
 - Containers can use any amount of free memory and CPU
 - Killed first if there are not enough resources.
 - If requests and limits are not set for all containers. 
-- 
+ 
 
 
 
