@@ -1,3 +1,10 @@
+# Overview
+- Claim a suite PersistenVolume
+- Pod uses pvc to request pyhsical storage
+- After PVC deployment, controlplan searches suitable PV with the same `StorageClass`
+- PV is found, PVC is attached, PV status is bound.
+- 
+
 
 # Yaml
 ```yaml

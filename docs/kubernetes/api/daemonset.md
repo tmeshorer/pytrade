@@ -1,6 +1,7 @@
 # Deamonset
 
 - A DaemonSet ensures that a copy of a Pod is running across a set of nodes in a Kubernetes cluster. DaemonSets are used to deploy system daemons such as log collectors and monitoring agents
+- Manages by the deamon set controller.
 - If a new node is added to the cluster, then the DaemonSet controller notices that it is missing a Pod and adds the Pod to the new node.
 - Yaml:
 ```yaml
@@ -64,4 +65,10 @@ spec:
       containers:
         - name: nginx
           image: nginx:1.10.0
+```
+
+Only on desired nodes
+```yaml
+  nodeSelector:
+  my-key: my-value
 ```

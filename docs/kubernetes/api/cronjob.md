@@ -1,5 +1,9 @@
 # Description
-Create new Job Poridicaly based on schedule. Based on cron expression
+Create new Job Periodically based on schedule. Based on cron expression
+
+# Format
+- Based on cron format.
+- 
 
 # Yaml
 ```yaml
@@ -22,3 +26,19 @@ spec:
             - 'echo "Current date: $(date)"'
           restartPolicy: OnFailure
 ```
+
+## Create a cron job every 5 min
+```commandline
+kubectl create cronjob my-cj —-image=busybox  —-schedule="*/5 * * * *" -n my-namespace
+```
+
+## Change job schedule
+```commandline
+kubectl patch cronjob my-cronjob -p '{"spec":{"schedule": "0 */1 */1 * *"}}'
+```
+
+## Lunch a job from existing job
+```commandline
+kubectl create job —-from=cronjob/my-cronjob my-job -n my-namespace
+```
+

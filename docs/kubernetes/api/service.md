@@ -1,3 +1,15 @@
+# Overview
+- Allow to reach application with a single IP address.
+- Assign a group of Pods a uniqe DNS name
+- The set of pods target by a service is determined by a selector.
+
+## DNS
+```yaml
+my-app.my-ns.svc.cluster.local
+```
+
+
+
 #Service Discovery
 - While the dynamic nature of Kubernetes makes it easy to run a lot of things, it creates problems when it comes to finding those things. Most of the traditional network infrastructure wasn’t built for the level of dynamism that Kubernetes presents.
 - Service-discovery tools help solve the problem of finding which processes are listening at which addresses for which services. 
@@ -22,26 +34,27 @@
   ```commandline
   alpaca-prod.default.svc.cluster.local.
   ```
-## Readiness check
-```yaml
-spec:
-  ...
-  template:
-    ...
-    spec:
-      containers:
-        ...
-        name: alpaca-prod
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          periodSeconds: 2
-          initialDelaySeconds: 0
-          failureThreshold: 3
-          successThreshold: 1
 
+## Service types
+- `ClusterIP` - expose the service on a cluster internal IP. Only reachable inside the cluster
+- `NodeIP` - expose the service on each node ip
+  ```yaml
+  <NodeIP>:<nodePort>
+   ```
+- `LoadBalancer` - Create an external load balancer. Assign a fixed external IP address.
+- `ExternalName` - Provide an internal alias to external DNS name. Redirect request to external name
+
+
+## Create a service
+```commandline
+kubectl expose deploy my-deploy —-type=LoadBalancer
+—-name=my-svc —-target-port=8080 -n my-namespace
 ```
+## Create a Pod and expose it 
+```commandline
+kubectl run my-pod —-image=nginx —-restart=Never —-port=80 —-expose -n my-namespace
+```
+
 ## NodePort
 
 The most portable way to do this is to use a feature called NodePorts, which enhance a service even further. In addition to a cluster IP, the system picks a port (or the user can specify one), and every node in the cluster then forwards traffic to that port to the service.

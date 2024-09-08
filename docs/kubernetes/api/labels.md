@@ -1,3 +1,6 @@
+
+
+
 ```yaml
 tier:backend
 env:dev
@@ -22,14 +25,19 @@ spec:
  kubectl describe pod labeled-pod
 ```
 
-4) Modify the labels:
+4) Add a label
 ```commandline
 kubectl label pod labeled-pod region=us --overwrite
 ```
 
 5) Query using labels
 ```commandline
-kubectl get pods -l 'team in (shiny, legacy)' --show-labels
+kubectl get pods -l 'team in (shiny, legacy)' --show-labels -w
+```
+
+6) List pods with labels:
+```commandline
+kubectl get pod —l app=my-app,version=v2
 ```
 
 6) Used by kubernetes object

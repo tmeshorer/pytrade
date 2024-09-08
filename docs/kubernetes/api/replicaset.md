@@ -1,6 +1,6 @@
 ## Replica set
 
-The easiest way to think of a ReplicaSet is that it combines a cookie cutter and a desired number of cookies into a single API object. When we define a ReplicaSet, we define a specification for the Pods we want to create (the “cookie cutter”) and a desired number of replicas. Additionally, we need to define a way of finding Pods that the ReplicaSet should control.
+Create Pods according to the number of specified replica
 
 ### Reconicliation loops
 

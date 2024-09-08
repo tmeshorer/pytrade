@@ -1,3 +1,35 @@
+# Overview
+- Allow access to services from outside the cluster
+- Avoid creating load balancer per service
+- Single external endpoint.
+- Implemented by 3 party
+- Consalidates serveral routes in a single resource. 
+
+## IngressClass
+Specify which ingress should be handled by the controller
+```yaml
+metadata:
+name: my-gce-ingress
+annotations:
+  kubernetes.io/ingress.class: gce
+```
+
+## PathType
+= Exact : Match URL 
+- Prefix: Match the URL path prefix.
+
+
+# Create ingress secure by TLS
+```yaml
+spec:
+tls:
+- hosts:
+- scraly.com
+secretName: secret-tls
+```
+
+
+
 # HTTP Load balancing and ingress
 
 Work at Layer 7 instead of Layer 4.

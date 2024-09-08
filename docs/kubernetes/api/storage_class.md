@@ -1,4 +1,9 @@
 # Overview
+- In order to setup dynamic provisioning
+- GCEPersistentDisk / AzureDisk/ AwsEBS
+- VolumeBindingMode: Immediate - means that volume binding & dynamic provisioning will occur
+  when the PVC is created.
+- 
 
 # Yaml
 ```yaml

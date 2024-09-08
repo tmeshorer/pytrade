@@ -1,3 +1,9 @@
+# Overview
+- Smallest unit of execution
+- Can contain several containers that share the same IP
+- The status of the containers checked by probe. The status of probe is aggergated to the POD
+- The probes are performed by the kubelet. Thress types: readiness/liveness/starup
+
 # Definion
 
 ```yaml
@@ -30,11 +36,54 @@ kubectl get pods
 ```
 
 # Pods States
-- Pending - Pod accepeted by k8s. One or more container images were created
-- Running - At least one container running
-- Succeed - All container terminated successfuly
-- Failed - At least one container failed with and error
-- Unknown - The state of the pod is unknown.
+- Pending - Pod accepted by k8s. One or more container images were created
+- Running - Bound to a node. All containers are created, at least one is running
+- Succeed - All container terminated successfully
+- Failed - At least one container failed with and error.
+- Unknown - The state of the pod cannot be obtained.
+
+# Pod Condition
+- Ready - if all containers are running.
+- Take care between container running and the ability to serve requests.
+- 
+## Readiness probe
+Only signal if it can be added to the load balancer.
+
+## Liveness Probe
+- Container will be restarted if the probe fails.
+- Should be used:
+  - The process is unable to crash on its own.
+  - Only determine if the process is responding or not.
+   
+## Startup probe
+
+- Long boot time of legacy application. 
+
+## Pre stop
+- Do not recieve traffic while shutting down. 
+- Add prestop.
+
+
+
+# Delete pod
+
+## Regular deletion
+```commandline
+kubectl delete pod my-pod
+```
+
+## Delete a pod instantly (enforce)
+
+```commandline
+kubectl delete pod my-pod --grace-period=0 --force
+```
+
+## Delete pod stuck in unknown state
+```commandline
+kubectl patch pod my-pod -p '{"metadata: {"finalizers": null}}'
+```
+
+
 
 # Show pods details
 ```yaml
@@ -89,7 +138,44 @@ spec:
 - side car
 
 ## Init container
+- Pod can have one or more containers and one or more init containers.
+- Each init container must start successfully before executing the next one.
+- Use for: init db schemas, setup permissions,
 
+### Pods that share volume
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-website
+spec:
+    initContainers:
+      - name: clone-repo
+        image: alpine/git
+        command:
+        - git
+        - clone
+        - --progress
+        - https://github.com/scraly/my-website.git
+        - /usr/share/nginx/html
+        volumeMounts:
+          - name: website-content
+            mountPath: "/usr/share/nginx/html"
+        containers:
+          - name: nginx
+            image: nginx
+            ports:
+              - name: http
+                containerPort: 80
+            volumeMounts:
+               - name: website-content
+                 mountPath: "/usr/share/nginx/html"
+            volumes:
+              - name: website-content
+            emptyDir: {}
+
+```
 
 ```yaml
 apiVersion: v1
@@ -182,9 +268,15 @@ spec:
 
 - Health Probe - A health probe is a periodically running mini-process that asks the application for its status and takes action upon certain conditions.
 - Probe Types
-  - Readiness Probe - Check if the application is ready to serve.
-  - Liveness probe - Once the application has started, check if it works.
-  - Startup probe - legacy up, wait before starting the liveness probe.
+  - Readiness Probe - Check if the application is ready to accept traffic. If not, kubernetres will
+    remove the link between service and a pod.
+  - Liveness probe -Check when to restart a container.
+    - periodSecs = perform prove every XX seconds
+    - initialDelaySeconds - wait XX seconds before first probe
+    - terminationGrace - ask kubeclet to wait before deletion of the container
+  - Startup probe - Hold off all other probes until the pod finish startup. 
+                    Give time to a containr to startup. 
+  - 
 - Verification methods
   - custom command - execute command inside the container
   - httpGet - Send HTTP GET request to an endpoint.
@@ -233,6 +325,36 @@ spec:
       periodSeconds: 30
 ```
 
+### Container life cycle events
+
+
+### Execute command in a container
+```commandline
+kubectl exec my-pod -c my-container --it -- sh
+tail -f /var/log/debug.log
+```
+
+Can add default container annotation
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+name: my-pod
+annotations:
+  kubectl.kubernetes.io/default-container: my-container-2
+spec:
+    containers:
+      - name: my-container
+        image: my-image
+      - name: my-container-2
+        image: my-image-2
+        command: ["/bin/sh", "-c"]
+        args:
+          - while true; do
+              date >> /html/index.html;
+            sleep 1;
+            done
+```
 
 ### Troubleshooting
 1. Get the pods
@@ -319,3 +441,20 @@ spec:
         memory: "64Mi"
         cpu: "250m"
 ```
+
+# Kubectl commands
+
+## Create a pod
+```commandline
+kubectl run busybox --image=busybox --restart=Never -n my-namespace
+```
+
+## Copy file into a pod
+```commandline
+kubectl cp file.txt my-pod:/path/myfile.txt
+```
+## List all pods
+```commandline
+kubectl get pod -o wide --all-namespaces
+```
+
