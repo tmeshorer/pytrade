@@ -2,6 +2,10 @@
 
 - A DaemonSet ensures that a copy of a Pod is running across a set of nodes in a Kubernetes cluster. DaemonSets are used to deploy system daemons such as log collectors and monitoring agents
 - Manages by the deamon set controller.
+- On each pod, set the nodeName. 
+- Deamonset use default affinity rule
+- Monitoring agent
+- Log collector
 - If a new node is added to the cluster, then the DaemonSet controller notices that it is missing a Pod and adds the Pod to the new node.
 - Yaml:
 ```yaml
@@ -72,3 +76,19 @@ Only on desired nodes
   nodeSelector:
   my-key: my-value
 ```
+
+# Static Pod
+
+- What if there is no node, no control plane
+- Can the kubelet operate as stand alone.
+- Put the pod definition files on:
+- /etc/kubernetes/manifests
+- Kubelet will also recreate the pods.
+- API server aware of static pods.
+- Kubelet create the static pod in the api server (View only)
+- Control plan components are pods.
+- Static Pod - create by kubelet. Deamonset create by the api server.
+
+# Can have multiple scheduler
+- KubeSchedulerConfiguration
+- 

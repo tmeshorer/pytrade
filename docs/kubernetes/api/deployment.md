@@ -2,12 +2,27 @@
 
 - Handle pod creation
 - Create `ReplicaSet` and ensure that they are running
+- Used mainly for rolling updates. 
+- Similar to ReplicaSet , but kind:Deployment.
+- 
 
 ## Features
 - Rolling update/ Rollout
 - Deployment History
 
 The Deployment object exists to manage the release of new versions. Deployments represent deployed applications in a way that transcends any particular version. Additionally, Deployments enable you to easily move from one version of your code to the next. This “rollout” process is specifiable and careful. It waits for a user-configurable amount of time between upgrading individual Pods. It also uses health checks to ensure that the new version of the application is operating correctly and stops the deployment if too many failures occur.
+
+# CLI commands (no yaml)
+Create Pod
+```commandline
+kubectl run nginx --image=nginx
+```
+Create Deployment
+```commandline
+kubectl create deployment --image nginx nginx
+```
+
+
 
 ## Create
 ### CLI

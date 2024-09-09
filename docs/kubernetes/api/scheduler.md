@@ -11,11 +11,22 @@ Select a worker node.
 nodeSelector:
   node: my-node
 ```
+Label node
+```commandline
+kubectl label nodes <node-name> key=value
+```
+- Limitation - only one label, cannot achive that. 
 ## Node Affinity
 Like selector but with more expressive syntax
 - Hard rule
 - Soft rule
 - Operator: In, Exist, Gt, Lt...
+  - `Exist` - check if the key exist.
+ - requireDuringScheduleing
+ - during scheduling - where a pod does not exist and created for the first time.
+ - require - if cannot find one the pod will not be schedules.
+ - preffered - if not node found, the scheduler will place the node on matching node.
+ - `DuringExecution` - change has been made in the environment.  `Ignore` any changes will not affect them
 ## Pod Affinity
 Allow to run the Pod on the same Node than another Pod. Usefull for pods that need to 
 run on the same machine.
@@ -24,9 +35,8 @@ spec:
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
+        nodeSelectTerms: 
+            - matchExpressions:
               - key: app
                 operator: In
                 values:
@@ -78,13 +88,70 @@ resources:
 
 
 ## Taints and Toloration
+- Taint belong to a node. prevent pods from being placed on a node.
+- Tolorant - put on pods - pod D is tollorant to node taint.
 
+### Tainted
+```commandline
+kubectl taint nodes node-name 
+```
+- Taint affect
+  - NoSchedule - no pod will be scheduled.
+  - PrefferedNoSchedule
+  - NoExecute - new pods will not be scheudle. Existing pods will be evicted.
+- Taint is set on the master node, to prevent any node.
+
+## Toloration
+Added to the pod yaml file
+```yaml
+tolorations:
+  - key: "app"
+  - operator: "Equal"
+  - value: "blue"
+  - effect: "NoSchedule"
+```
 
 ## Resource Limits
 ## Resource Requests
 - The scheduler assure that the sum of all resource request is less than node capacity
 - Sum of resource limit > node capacity than we have overcommitment.
+- Pod placed on a node consume resources. 
+- No resources: Insufficient CPU. 
+## Request 
+  ```yaml
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: 1
+  ```
+- What does one count of CPU means: 100m, can go as low as 1m
+- one count of cpu is 1 core / 1 VCPU. 
+- Memory : `256Mi`. G / Gi (Gibibyte)
+- Container can conume as much as it wants. Set a limit 1 vcpu. 
+### Limits
+  ```yaml
+    resources:
+      limits:
+        memory: "2Gi"
+        cpu: 1
+  ```
+- Each containers have request and limit.
+- The system trotale the cpu if container pass the limit. 
+- The pod will terminate - OOM error.
+
+### Default Behavior CPU
+- Any pod can saffocate the nodes.
+- If request is not specified, k8s set request to limit.
+- Not good to set cpu limit,
+- Set request but not limit. (Ideal)
+- Pod must have requests if we do not set limit. 
+### LimitRange
+Define default limit, and default range. 
+Can create limit range for memory and cpu
+### Create resource quota 
+- Hard limit per namespace.
 - 
+
 ### CPU
 - Scheduler use this to find a node. IF not found it can evict pods based on QOS and Pod prioity.
 - Resource request are the relative share of the CPU.

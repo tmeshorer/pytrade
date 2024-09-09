@@ -1,3 +1,10 @@
+# Background
+- Old `Volume`, user need to configure storage in pod def file.
+- Like to configure storage, independently. 
+- PV - cluster wide persisent volume
+- Use use `PersistenVolumeClaim`
+
+
 # Overview
 - Pods are mortal as well as nodes.
 - To store data permanently, use `PersistentVolume`
@@ -34,7 +41,7 @@ spec:
 - Persistent volumn options.
   - `spec.volumeMode` - FileSystem(mounts the volume into a directory)
   - `spec.volumeMode` - Block - mount the volume as a raw block device.
-- Access mode
+- Access mode (How volume should be mounted on the host)
   - `ReadWriteOnce` - Read/write access by a single node
   - `ReadOnlyMany` - Read only access by many nodes
   - `ReadWriteMany` - Read/Write access by many node

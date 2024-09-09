@@ -1,0 +1,6 @@
+- Deploy out application as a set of machine.
+- Containers are encapsulated as pods.
+- Pod - smallest object that can be created.
+- Deploy pods on new nodes, pods has 1:1 relationship with containers.
+- Need to create addional containers. Helper container.
+- ReplicateSet = apps/v1, Deployment apps/v1

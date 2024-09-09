@@ -1,4 +1,6 @@
 # Overview
+- Without storage class - static provising, we must create the disk.
+- We want the volume to be provision automatically. 
 - In order to setup dynamic provisioning
 - GCEPersistentDisk / AzureDisk/ AwsEBS
 - VolumeBindingMode: Immediate - means that volume binding & dynamic provisioning will occur

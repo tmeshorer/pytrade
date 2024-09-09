@@ -2,6 +2,51 @@
 - Allow to reach application with a single IP address.
 - Assign a group of Pods a uniqe DNS name
 - The set of pods target by a service is determined by a selector.
+- NodePort - listen to port on the node.
+  - Target port - service refer to request to.
+  - Cluster IP of service.
+  - NodePort - 30008. Only valid range.
+- ClusterIP - server create virtual ip inside the cluster.
+- LoadBalancer - provision load balancer
+
+### YAML
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+spec:
+  type: NodePort
+  ports:
+    -targetPort: 80
+     port: 80
+     nodePort: 30080
+  selector:
+    app: myapp
+    type: front-end
+```
+- Can have multiple port mapping.
+- Connect service to the file using selector.
+- kubernetes spread the port.
+- service created exactly the same.
+
+```commandline
+kubectl get services
+```
+
+# ClusterIP
+- Pods has IP but its not stable.
+- Service - group the pods together.
+```yaml
+spec:
+  type: ClusterIP
+  selector:
+    app: myapp
+    type: x
+  ports:
+    - targetPort : 80
+      port: 80
+```
 
 ## DNS
 ```yaml

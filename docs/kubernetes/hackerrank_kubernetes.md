@@ -1,5 +1,7 @@
 # Kuberntes installation and configuration
 
+
+
 #  (B) Kubernetes deployments and clusters
 Creating different kinds of deployment and understanding how to work with:
 - deployments api
