@@ -1,0 +1,32 @@
+# Flow
+- Clarify the req.
+- Draft API spec
+- Design data model
+- Discuss failure design
+- Discuss perofrmance. 
+
+
+- Process
+- Use case
+- Functional req
+- Non function
+  - Availability
+  - Scalability
+  - Latency
+  - Consistency
+- Client API Need
+- Calculation
+  - Total Users
+  - DAU
+  - QPS
+  - Spike: 5*QPS.
+  - 
+    - Total size
+      - Size and cadenality for each entity
+    - Write RPS
+    - Read RPS
+- System Design
+  - Layers
+  - Load balancers
+  - Communication
+  - Database

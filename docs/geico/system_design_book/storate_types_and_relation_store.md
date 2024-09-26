@@ -1,0 +1,50 @@
+# Storage types and relation stores
+- Format : File based, block based, Object based
+- File storage:
+  - Store data in a folder.
+- Block storage:
+  - Fixed size pages
+  - Each block live on its own address.
+  - No metadata
+- Object storage:
+  - Bucket
+  - Object
+- Database - structured collection of data.
+  - Manage access control / Transaction / Backup / Recovery
+  - One or more tables.
+# Relational database
+- Tables - Specific entiry or concept
+- Rows - records/tuple - individual instance of data.
+- Columns - attribute of entity.
+- Relationship
+- Key - uniqe identify each row
+- Index - enhance perofrmance of each query
+- Contraints
+- Views - Virtual tables derived from data stored
+- Transaction - Logical unit of work
+- SQL
+  - DDL - create table/index
+  - DML - Data maninputation
+- ACID
+- ER
+# Scaling Relational database
+- Partion a table into smaller table
+  - Vertical parition
+  - Horizonal Parition
+  - Hash Parition
+  - Range parition
+- Sharding
+  - Distobite large database across mulitple servers
+- Replication
+  - Copy data from one server to another. Each node stores a replica
+    - High Availability
+    - Load Distribution
+    - Reduce latency
+    - DR
+    - Scalability - Horizontal scaling
+  - Single leaderr / Multi leader
+    - Single leader - one database is the leader.
+  - Sync replication
+    - Consistent Write
+    - Immidate failover
+    - Data durability

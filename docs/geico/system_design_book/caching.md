@@ -1,0 +1,39 @@
+# Overview
+- Store freq access data close to the processor
+- Principle of locality
+- Cache hit / Cache miss
+## Benefits
+- Fast access
+- Reduce latency
+- Bandwidth optimization
+- Improved troughput
+## Cache eviction policy
+- Max cach hit ratio
+- Queue based policy
+  - FIFO
+  - LIFO
+- Recency based policy
+  - LRU
+  - MRU (Most recently used)
+- AllowList - Set of predefined items elgible for retention. 
+- Invalidation
+  - TTL
+  - Invalid on modification
+  - Invalid on read
+- Caching strategy
+- Caching deployment
+  - In process caching - in memory data
+  - Inter process caching - deploying the cache as a seperate process.
+  - Inter process caching - Deploy the cache as a seperate process
+  - Remote cache.
+- Where?
+  - CDN Cache
+    - Push CDN - content is pre cached in advance
+    - Pull CDN - content is pull on demand
+  - Web server cache
+  - Database Caching
+  - Qeury Level Caching - result of freq query
+  - Object level caching
+- Multi tier CDN
+- Geo DNS
+- 

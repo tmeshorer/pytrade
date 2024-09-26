@@ -1,0 +1,24 @@
+- Monolitic code base
+- Monolitic database.
+- Microservice - 
+  - Seperation of concern - modularity, enacpsulate
+  - Scalability - horizontal scaling.
+  - Virtualzation - elastic environment. auto scaling.
+  - Organ in the system
+  - Netflix
+    - Edge - API service
+    - Middle teir - AB testing
+    - Subscriber service
+    - Recommendation system
+    - Platform services
+    - Cache
+- Abstraction
+  - Service client (client libraries)
+  - Service
+  - Database
+  - [ Some point front with cache, cache client]
+  - Client library -
+  - Microservice = Client lib + machines.
+- Hystrix
+- Fault injection in production - syntatic transaction. Live traffic.
+- Presistance - CAP Theorem 

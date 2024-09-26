@@ -1,0 +1,56 @@
+# System
+- CPU
+- Memory
+- Network
+- Disk
+# Access time
+- Disk
+- Network
+  - Bandwith
+  - Latency
+- To reduce latency we must scale out. To scale out we must parition the data.
+- Distributed system - distributed state+ partial failure. 
+- CAP in a presentse of network parition - choose consistency or avaialbity. 
+- Cassandara - eventual consistency
+- Cassandra - local quorom. 
+- Develop - 3 AWS Region.
+- Stateless service - Loss node is non event.
+  - Autoscaling - min / max / metrix. Pull image from S3. 
+- Statefull service
+  - Database and cache
+  - Custom app - large amount of data.
+  - Loss of node is notable event
+  - Evcache
+- Scale in linear way - Ms per request. 
+- Request level caching. 
+
+# Microservice at flow
+- Services
+  - Catalog
+  - Payment
+  - Inventory
+  - Order
+  - Fullfilment
+- API Proxy
+- Every service publish evnets.
+- First thing - how to define API.
+- Database architcure
+  - Each service has its own database.
+  - Service comm is only API or events.
+  - End to end latency - 500 ms.
+- Single purpose.
+- Simple well defined interface.
+- SOA properly.
+- Isolated persistance. 
+- Persistance service. Store your own slice.
+- Events
+  - Significant change in state - thing happened. Async. 
+- Stage changes -> events.
+- Events - how the real work works. Workflow.
+- Part of interface
+  - Event that the service produce
+  - Events that service consume
+  - Bulk read/write ETL
+- Response
+  - Fanout
+    - 1ms avg , 1 sec p99. 

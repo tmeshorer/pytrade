@@ -1,0 +1,55 @@
+- Problem navigation:  You should be asking questions to reduce ambiguity, 
+  - identify the most critical problems, 
+  - understand what is needed for quantitative analysis, and define a requirement set to design to.
+- Solution Design:
+  - Big picture of the design
+  - Single point of failure
+  - Vision and technical ideas.
+- Way
+  - Outline high level components
+  - How they fit together
+- Question:
+  - How many users
+  - How many peak users
+  - What are the latency requiment
+  - What features we would support.
+- 
+Performance -How fast is the system?
+
+- Scalability - How will the system respond to increased demand?
+- Reliability - What is the system’s uptime?
+- Resilience - How will the system recover if it fails?
+- Security - How are the system and data protected?
+- Usability - How do users interact with the system?
+- Observability/Maintainability - How will you troubleshoot the system?
+
+- Skills
+    Design, Design a system in the interview.
+  -     Performance needs
+  -     Resource needs
+  -     Bottleneck in the system
+  -     Pre build componnent,
+  -     Failure mode, s
+      Managment
+    - Design a system for managbility
+    - Avoid single point of failure
+    - Avoid scalablity
+  - Complex system
+    - Scale up
+    - Scale down
+    - Migration
+  - Design a system that copy a file to one machine
+    - File is 100GB 
+    - once day - 100K target machine on the moon.
+    - 100 MB - 10000 sec to transfer data. We cannot transfer from our source machine
+    - Totoal bandwidth available. 
+    - How to account which machine recieve the data - extra network latency. 
+    - 
+- What are the bottle neck in the system
+  - Network bandwith
+  - Disk IO bandiwth
+  - Disk operations.
+  - SSD 0.1 ms 
+  - SSD 100K per second.
+- https://www.youtube.com/watch?v=swfurPw8c6A&t=0s
+- 
